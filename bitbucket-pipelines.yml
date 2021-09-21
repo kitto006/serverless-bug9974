@@ -1,0 +1,24 @@
+image: node:12.13.0-alpine
+
+# global steps
+definitions:
+  steps:
+    - step: &sls-deploy
+        name: Serverless deploy
+        caches:
+          - node
+        script:
+          - env
+          - apk add python3
+          - npm install -g serverless
+          - npm install serverless-plugin-warmup --save-dev
+          - serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID} --secret ${AWS_SECRET_ACCESS_KEY}
+          - serverless deploy -v
+
+pipelines:
+  branches:
+    master:
+      - step: 
+         <<: *sls-deploy
+         trigger: automatic 
+         deployment: test
