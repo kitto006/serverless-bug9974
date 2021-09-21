@@ -1,14 +1,8 @@
 ## Bug ticket: https://github.com/serverless/serverless/issues/9974
 ## Serverless Plugin Warmup doc https://www.serverless.com/plugins/serverless-plugin-warmup/
 ##
-## this script creates the following objects in your AWS account
+## this script doesn't work because serverless expects the warmup to be declared in the custom section
 ##
-## CloudFormation > Stacks > bug9974-dev
-## Lambda > Functions > bug9974
-## Lambda > Functions > bug9974-warmer
-## CloudWatch > Logs > Log groups > /aws/lambda/bug9974
-## CloudWatch > Logs > Log groups > /aws/lambda/bug9974-warmer
-## CloudWatch > Logs > Rules > bug9974-dev-WarmUpPlugingDefaultEventsRuleSchedule1-xxxxxxxxx
 ##
 ## pre-requisite: <your-s3-bucket-for-serverless-deploy>
 

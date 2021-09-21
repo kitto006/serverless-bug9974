@@ -8,7 +8,7 @@
 ## Lambda > Functions > bug9974-warmer
 ## CloudWatch > Logs > Log groups > /aws/lambda/bug9974
 ## CloudWatch > Logs > Log groups > /aws/lambda/bug9974-warmer
-## CloudWatch > Logs > Rules > bug9974-dev-WarmUpPlugingDefaultEventsRuleSchedule1-xxxxxxxxx
+## CloudWatch > Logs > Rules > rule-warmer-bug-9974  (nice custom name)
 ##
 ## pre-requisite: <your-s3-bucket-for-serverless-deploy>
 
