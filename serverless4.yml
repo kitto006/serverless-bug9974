@@ -1,0 +1,66 @@
+## Bug ticket: https://github.com/serverless/serverless/issues/9974
+## Serverless Plugin Warmup doc https://www.serverless.com/plugins/serverless-plugin-warmup/
+##
+## this script creates the following objects in your AWS account
+##
+## CloudFormation > Stacks > bug9974-dev
+## Lambda > Functions > bug9974
+## Lambda > Functions > bug9974-warmer
+## CloudWatch > Logs > Log groups > /aws/lambda/bug9974
+## CloudWatch > Logs > Log groups > /aws/lambda/bug9974-warmer
+## CloudWatch > Logs > Rules > rule-warmer-bug-9974  (nice custom name)
+##
+## pre-requisite: <your-s3-bucket-for-serverless-deploy>
+
+
+service: bug9974
+
+package:
+  excludeDevDependencies: true
+  exclude:
+    - README.md
+    - package*json
+    - configs/**
+    - .idea/**
+    - .git/**
+    - .circleci/**
+    - tests/**
+    - .venv/**
+    - venv/**
+    - .serverless/**
+
+custom:
+  warmup:
+    default:
+      enabled: true # Whether to warm up functions by default or not
+      name: bug9974-warmer
+      events:
+        - schedule:
+            name: rule-warmer-bug-9974
+            description: bug9974-test
+            rate: rate(5 minutes)
+      prewarm: true
+
+
+provider:
+  region: ca-central-1
+  name: aws
+  runtime: python3.7
+  deploymentPrefix: serverless
+  memorySize: 256
+  timeout: 20
+  logRetentionInDays: 14
+  versionFunctions: false
+  deploymentBucket:
+    name: <your-s3-bucket-for-serverless-deploy>
+    serverSideEncryption: AES256
+
+functions:
+  foo:
+    name: bug9974
+    handler: foo.lambda_handler
+    warmup:
+      default:
+        enabled: true             
+
+ 

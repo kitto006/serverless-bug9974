@@ -42,6 +42,19 @@ serverless3.yml
                     rate: rate(5 minutes)
             prewarm: true
 
+serverless4.yml  (omit plugins section - no errors, but no warmer lambda function and associated cloudwatch schedule rule is created)
+    custom:
+        warmup:
+            default:
+                enabled: true # Whether to warm up functions by default or not
+                name: bug9974-warmer
+                events:
+                    - schedule: 
+                        name: rule-warmer-bug-9974
+                        description: bug9974-test
+                        rate: rate(5 minutes)
+                prewarm: true            
+
 
 
 To reproduce the results
